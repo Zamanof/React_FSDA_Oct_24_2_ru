@@ -54,7 +54,7 @@ export default class TodoListItem extends Component {
                     className="btn btn-outline-danger btn-sm float-end"
                     onClick={ onDeleted }
             >
-                <i className={"fa-regular fa-trash-can"}/>
+                <i className={"fa-solid fa-x"}/>
             </button>
         </span>
 
