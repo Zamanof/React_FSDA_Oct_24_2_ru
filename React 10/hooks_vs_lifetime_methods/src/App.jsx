@@ -1,23 +1,17 @@
 import './App.css'
-import ClassCounter from "./classCounter.jsx";
-import {useState} from "react";
+import ClassComponent from "./components/ClassComponent.jsx";
+import FunctionalComponent from "./components/FunctionalComponent.jsx";
+
+
 // useState
 const App = () => {
-    const [value, setValue] = useState(0);
     return (
-        <div>
-            <div>
-                <button onClick={() => setValue((v) => {
-                    return v + 1;
-                })}> +
-                </button>
-
-                <button onClick={() => setValue((v) => {
-                    return v - 1;
-                })}> -
-                </button>
+        <div className="app">
+            <div className="components-row">
+                <ClassComponent/>
+                <FunctionalComponent/>
             </div>
-            <ClassCounter value={value}/>
+
         </div>
     )
 }
