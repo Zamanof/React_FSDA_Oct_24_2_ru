@@ -1,14 +1,31 @@
-import React, { useState,} from 'react'
-
+import React, {useEffect, useState} from 'react'
 import { Character } from '../types'
+import {useParams, Link, useNavigate} from "react-router-dom";
+import {fetchCharacterById} from "../api.ts";
 
 const CharacterDetailPage: React.FC = () => {
-
+    const {id} = useParams<{id: string}>()
+    const navigate = useNavigate();
     const [character, setCharacter] = useState<Character | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
 
+    useEffect(() => {
+        if(!id){
+            navigate(`/characters`)
+            return
+        }
+    })
 
+    const loadCharacter = async () => {
+        try {
+            setLoading(true)
+            const characterId = parseInt(id)
+            if(isNaN(characterId) || characterId <= 0) {
+                
+            }
+        }
+    }
 
     if (loading) {
         return (

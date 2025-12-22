@@ -15,3 +15,17 @@ export const fetchCharacters = async ():Promise<Character[]> => {
         throw error;
     }
 }
+
+export const fetchCharacterById =
+    async (id:number):Promise<Character> => {
+        try {
+            const response = await fetch(`${BASE_URL}/${id}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch character.");
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Failed to fetch character.", error);
+            throw error;
+        }
+    }

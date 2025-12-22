@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 
 const HomePage: React.FC = () => {
@@ -32,6 +33,30 @@ const HomePage: React.FC = () => {
 
                         </div>
 
+                        <div className="flex flex-wrap gap-4 md:justify-start">
+                            <Link to="/characters"
+                                  className='group relative px-8 py-4
+                                  bg-gradient-to-r from-green-500 to-green-600 rounded-lg
+                                  font-bold text-white text-lg overflow-hidden
+                                  transition-all duration-300 hover:scale-105
+                                  hover:shadow-2xl hover:shadow-green-500/50'>
+                                <span className="relative z-10">Explore Characters</span>
+                                <div className="absolute inset-0 bg-gradient-to-r
+                                from-green-600 to-green-700 opacity-0
+                                group-hover:opacity-100 transition-opacity"></div>
+                            </Link>
+                            <Link to="/apout"
+                                  className='group relative px-8 py-4
+                                  bg-gradient-to-r from-green-500 to-green-600 rounded-lg
+                                  font-bold text-white text-lg overflow-hidden
+                                  transition-all duration-300 hover:scale-105
+                                  hover:shadow-2xl hover:shadow-green-500/50'>
+                                <span className="relative z-10">Learn More</span>
+                                <div className="absolute inset-0 bg-gradient-to-r
+                                from-green-600 to-green-700 opacity-0
+                                group-hover:opacity-100 transition-opacity"></div>
+                            </Link>
+                        </div>
 
                         <div className="flex-1 flex justify-center items-center gap-8">
                             <div className="relative">
