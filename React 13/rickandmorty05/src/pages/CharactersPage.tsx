@@ -1,8 +1,10 @@
-import React, {useState, useEffect, useMemo, useCallback} from 'react'
+
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import SearchForm from '../components/SearchForm'
-import {fetchCharacters} from '../api'
-import {Character} from '../types'
-import {Link} from 'react-router-dom'
+import FavoriteButton from '../components/FavoriteButton'
+import { fetchCharacters } from '../api'
+import { Character } from '../types'
 
 const CharactersPage: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([])
@@ -25,7 +27,6 @@ const CharactersPage: React.FC = () => {
         loadCharacters()
     }, [])
 
-    // useMemo для оптимизации фильтрации
     const filteredCharacters = useMemo(() => {
         if (!searchQuery.trim()) {
             return characters
@@ -36,7 +37,6 @@ const CharactersPage: React.FC = () => {
         )
     }, [characters, searchQuery])
 
-    // useCallback для оптимизации
     const handleSearch = useCallback((query: string) => {
         setSearchQuery(query)
     }, [])
@@ -44,8 +44,7 @@ const CharactersPage: React.FC = () => {
     if (loading) {
         return (
             <div className="text-center py-20">
-                <div
-                    className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500 mb-4"></div>
+                <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500 mb-4"></div>
                 <p className="text-xl text-gray-400">Loading characters from the multiverse...</p>
             </div>
         )
@@ -63,12 +62,11 @@ const CharactersPage: React.FC = () => {
 
     return (
         <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-8 text-green-400">
                 Characters
             </h1>
 
-            {/* Форма поиска */}
-            <SearchForm onSearch={handleSearch}/>
+            <SearchForm onSearch={handleSearch} />
 
             <div className="mb-6 bg-gray-800/50 p-4 rounded-xl border border-gray-700">
                 <p className="text-gray-300 text-lg">
@@ -79,27 +77,28 @@ const CharactersPage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCharacters.map((character) => (
-                    <Link
+                    <div
                         key={character.id}
-                        to={`/characters/${character.id}`}
                         className="group bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:bg-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/30 border-2 border-gray-700 hover:border-green-500"
                     >
-                        <div className="relative overflow-hidden">
-                            <img
-                                src={character.image}
-                                alt={character.name}
-                                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                            />
-                            <div
-                                className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <Link to={`/characters/${character.id}`}>
+                            <div className="relative overflow-hidden">
+                                <img
+                                    src={character.image}
+                                    alt={character.name}
+                                    className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                            <div className="p-5">
+                                <h2 className="text-xl font-bold mb-2 text-green-400 group-hover:text-yellow-400 transition-colors">{character.name}</h2>
+                                <p className="text-gray-400 mb-4">Species: <span className="text-gray-300">{character.species}</span></p>
+                            </div>
+                        </Link>
+                        <div className="px-5 pb-5">
+                            <FavoriteButton character={character} />
                         </div>
-                        <div className="p-5">
-                            <h2 className="text-xl font-bold mb-2 text-green-400 group-hover:text-yellow-400 transition-colors">{character.name}</h2>
-                            <p className="text-gray-400">Species: <span
-                                className="text-gray-300">{character.species}</span></p>
-                        </div>
-
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>

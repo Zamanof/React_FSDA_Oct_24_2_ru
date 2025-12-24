@@ -1,39 +1,40 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import FavoriteButton from '../components/FavoriteButton'
+import { fetchCharacterById } from '../api'
 import { Character } from '../types'
-import {useParams, Link, useNavigate} from "react-router-dom";
-import {fetchCharacterById} from "../api.ts";
 
 const CharacterDetailPage: React.FC = () => {
-    const {id} = useParams<{id: string}>()
-    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>()
+    const navigate = useNavigate()
     const [character, setCharacter] = useState<Character | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        if(!id){
-            navigate(`/characters`)
+        if (!id) {
+            navigate('/characters')
             return
         }
+
         const loadCharacter = async () => {
             try {
                 setLoading(true)
                 const characterId = parseInt(id)
-                if(isNaN(characterId) || characterId <= 0) {
-                    throw new Error('Invalid character id')
+                if (isNaN(characterId) || characterId < 1) {
+                    throw new Error('Invalid character ID')
                 }
                 const data = await fetchCharacterById(characterId)
                 setCharacter(data)
-            }catch(e){
-                setError("Character not found")
+            } catch (err) {
+                setError('Character not found')
             } finally {
                 setLoading(false)
             }
         }
+
         loadCharacter()
     }, [id, navigate])
-
-
 
     if (loading) {
         return (
@@ -49,17 +50,11 @@ const CharacterDetailPage: React.FC = () => {
             <div className="text-center py-20">
                 <div className="text-6xl mb-4">😢</div>
                 <p className="text-xl text-red-400 mb-4 font-semibold">{error || 'Character not found'}</p>
-                <Link to="/characters"
-                      className='group relative px-8 py-4
-                                  bg-gradient-to-r from-green-500 to-green-600 rounded-lg
-                                  font-bold text-white text-lg overflow-hidden
-                                  transition-all duration-300 hover:scale-105
-                                  hover:shadow-2xl hover:shadow-green-500/50'>
-                    <span className="relative z-10">Back to characters</span>
-                    <div className="absolute inset-0 bg-gradient-to-r
-                                from-green-600 to-green-700 opacity-0
-                                group-hover:opacity-100 transition-opacity"></div>
-
+                <Link
+                    to="/characters"
+                    className="inline-block px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50"
+                >
+                    Back to Characters
                 </Link>
             </div>
         )
@@ -78,7 +73,13 @@ const CharacterDetailPage: React.FC = () => {
 
     return (
         <div>
-
+            <Link
+                to="/characters"
+                className="inline-flex items-center gap-2 mb-8 text-green-400 hover:text-yellow-400 font-semibold transition-colors group"
+            >
+                <span className="group-hover:-translate-x-1 transition-transform">←</span>
+                <span>Back to Characters</span>
+            </Link>
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl shadow-2xl border-2 border-green-500/50 max-w-3xl mx-auto">
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="relative">
@@ -92,7 +93,10 @@ const CharacterDetailPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex-1">
-                        <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-yellow-400 bg-clip-text text-transparent">{character.name}</h1>
+                        <div className="flex justify-between items-start mb-6">
+                            <h1 className="text-4xl font-bold text-green-400">{character.name}</h1>
+                            <FavoriteButton character={character} />
+                        </div>
                         <div className="space-y-4 bg-gray-900/50 p-6 rounded-xl">
                             <div className="flex items-center justify-between pb-3 border-b border-gray-700">
                                 <span className="font-semibold text-gray-300 text-lg">Species:</span>
