@@ -1,10 +1,10 @@
 import React from 'react'
-import {Link} from "react-router-dom";
-
+import { Link } from 'react-router-dom'
 
 const HomePage: React.FC = () => {
     return (
         <div className="min-h-screen">
+            {/* Hero Section */}
             <div className="relative overflow-hidden bg-gradient-to-br from-green-900 via-gray-900 to-blue-900 py-20">
                 <div
                     className="absolute inset-0 opacity-20"
@@ -28,36 +28,27 @@ const HomePage: React.FC = () => {
                             </p>
                             <p className="text-lg text-gray-400 mb-8 max-w-xl">
                                 Discover hundreds of characters from across infinite dimensions.
-                                Search, explore, and dive deep into the Rick and Morty universe.
+                                Search, explore, save favorites, and dive deep into the Rick and Morty universe.
                             </p>
-
+                            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                                <Link
+                                    to="/characters"
+                                    className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 rounded-lg font-bold text-white text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50"
+                                >
+                                    <span className="relative z-10">Explore Characters</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                </Link>
+                                <Link
+                                    to="/favorites"
+                                    className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg font-bold text-white text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50"
+                                >
+                                    <span className="relative z-10">My Favorites</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                </Link>
+                            </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-4 md:justify-start">
-                            <Link to="/characters"
-                                  className='group relative px-8 py-4
-                                  bg-gradient-to-r from-green-500 to-green-600 rounded-lg
-                                  font-bold text-white text-lg overflow-hidden
-                                  transition-all duration-300 hover:scale-105
-                                  hover:shadow-2xl hover:shadow-green-500/50'>
-                                <span className="relative z-10">Explore Characters</span>
-                                <div className="absolute inset-0 bg-gradient-to-r
-                                from-green-600 to-green-700 opacity-0
-                                group-hover:opacity-100 transition-opacity"></div>
-                            </Link>
-                            <Link to="/about"
-                                  className='group relative px-8 py-4
-                                  bg-gradient-to-r from-green-500 to-green-600 rounded-lg
-                                  font-bold text-white text-lg overflow-hidden
-                                  transition-all duration-300 hover:scale-105
-                                  hover:shadow-2xl hover:shadow-green-500/50'>
-                                <span className="relative z-10">Learn More</span>
-                                <div className="absolute inset-0 bg-gradient-to-r
-                                from-green-600 to-green-700 opacity-0
-                                group-hover:opacity-100 transition-opacity"></div>
-                            </Link>
-                        </div>
-
+                        {/* Character Images */}
                         <div className="flex-1 flex justify-center items-center gap-8">
                             <div className="relative">
                                 <img
@@ -91,12 +82,12 @@ const HomePage: React.FC = () => {
                         What You Can Do
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                         {/* Feature Card 1 */}
                         <div className="group bg-gray-800 p-6 rounded-xl border-2 border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2">
                             <div className="text-5xl mb-4 text-center">🔍</div>
                             <h3 className="text-xl font-bold mb-3 text-green-400">Search</h3>
-                            <p className="text-gray-400">
+                            <p className="text-gray-400 text-sm">
                                 Find any character by name or species across all dimensions
                             </p>
                         </div>
@@ -105,7 +96,7 @@ const HomePage: React.FC = () => {
                         <div className="group bg-gray-800 p-6 rounded-xl border-2 border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2">
                             <div className="text-5xl mb-4 text-center">👥</div>
                             <h3 className="text-xl font-bold mb-3 text-green-400">Browse</h3>
-                            <p className="text-gray-400">
+                            <p className="text-gray-400 text-sm">
                                 Explore hundreds of unique characters from the multiverse
                             </p>
                         </div>
@@ -114,16 +105,25 @@ const HomePage: React.FC = () => {
                         <div className="group bg-gray-800 p-6 rounded-xl border-2 border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2">
                             <div className="text-5xl mb-4 text-center">📋</div>
                             <h3 className="text-xl font-bold mb-3 text-green-400">Details</h3>
-                            <p className="text-gray-400">
+                            <p className="text-gray-400 text-sm">
                                 View comprehensive information about each character
                             </p>
                         </div>
 
                         {/* Feature Card 4 */}
+                        <div className="group bg-gray-800 p-6 rounded-xl border-2 border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/20 hover:-translate-y-2">
+                            <div className="text-5xl mb-4 text-center">⭐</div>
+                            <h3 className="text-xl font-bold mb-3 text-yellow-400">Favorites</h3>
+                            <p className="text-gray-400 text-sm">
+                                Save your favorite characters and manage your collection
+                            </p>
+                        </div>
+
+                        {/* Feature Card 5 */}
                         <div className="group bg-gray-800 p-6 rounded-xl border-2 border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2">
                             <div className="text-5xl mb-4 text-center">🌐</div>
                             <h3 className="text-xl font-bold mb-3 text-green-400">Navigate</h3>
-                            <p className="text-gray-400">
+                            <p className="text-gray-400 text-sm">
                                 Seamlessly move between different pages and dimensions
                             </p>
                         </div>
@@ -147,6 +147,27 @@ const HomePage: React.FC = () => {
                             <div className="text-5xl font-bold text-green-400 mb-2">100%</div>
                             <div className="text-gray-400 text-lg">Free</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="py-20 bg-gradient-to-br from-green-900/50 to-blue-900/50">
+                <div className="container mx-auto px-4 text-center">
+                    <h2 className="text-4xl font-bold mb-6 text-green-400">
+                        Ready to Explore?
+                    </h2>
+                    <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Start your journey through the multiverse and discover amazing characters
+                        from Rick and Morty's infinite adventures.
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <Link
+                            to="/characters"
+                            className="px-10 py-5 bg-gradient-to-r from-green-500 to-green-600 rounded-lg font-bold text-white text-xl hover:scale-105 transition-transform duration-300 shadow-2xl shadow-green-500/50"
+                        >
+                            Start Exploring →
+                        </Link>
                     </div>
                 </div>
             </div>

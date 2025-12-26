@@ -1,5 +1,4 @@
 import React from "react";
-import {useFavorites} from "../context/FavoritesContext.tsx";
 import {Character} from "../types.ts";
 
 interface FavoriteButtonProps {
@@ -7,20 +6,11 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({character}) => {
-    const {addCharacter, removeCharacter, isFavorite} = useFavorites();
 
-    const favorite = isFavorite(character.id)
-    const handleToggle = () => {
-        if (favorite) {
-            removeCharacter(character.id)
-        } else {
-            addCharacter(character)
-        }
-    }
-
+    const favorite = false
     return (
         <button
-            onClick={handleToggle}
+            onClick={()=>console.log(character)}
             className={`w-full px-6 py-3 rounded-xl 
         font-bold transition-all duration-300
         hover:scale-105

@@ -6,13 +6,12 @@ import CharacterDetailPage from "./pages/CharacterDetailPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import Layout from "./components/Layout.tsx";
-import {FavoritesProvider} from "./context/FavoritesContext.tsx";
 import FavoritesPage from "./pages/FavoritesPage.tsx";
 
 
 const App: React.FC = () => {
     return (
-        <FavoritesProvider>
+
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
@@ -25,7 +24,6 @@ const App: React.FC = () => {
                     </Route>
                 </Routes>
             </BrowserRouter>
-        </FavoritesProvider>
     )
 }
 
