@@ -1,8 +1,12 @@
 import React from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
+import {useAppSelector} from "../store/hooks.ts";
+import {selectFavoritesCount} from "../store/slices/favoritesSlice.ts";
 
 const Layout: React.FC = () => {
     const location = useLocation()
+
+    const favoritesCount = useAppSelector(selectFavoritesCount)
 
     const isActive = (path: string) => {
         return location.pathname === path
@@ -39,13 +43,25 @@ const Layout: React.FC = () => {
 
                         <Link
                             to="/favorites"
-                            className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 ${
+                            className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 relative ${
                                 isActive('/favorites')
                                     ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg shadow-green-500/50'
                                     : 'hover:bg-gray-700 hover:scale-105'
                             }`}
                         >
                             Favorites
+                            {
+                                favoritesCount> 0 &&(
+                                    <span className="absolute -top-2 -right-2
+                                    bg-gradient-to-r from-yellow-400 to-yellow-500
+                                    text-black text-xs font-bold
+                                    rounded-full w-6 h-6
+                                    flex items-center justify-center
+                                    shadow-lg animate-pulse">
+                                        {favoritesCount}
+                                    </span>
+                                )
+                            }
                         </Link>
 
                         <Link

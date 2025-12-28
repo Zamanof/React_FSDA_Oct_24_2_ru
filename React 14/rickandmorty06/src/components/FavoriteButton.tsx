@@ -1,16 +1,42 @@
 import React from "react";
 import {Character} from "../types.ts";
+import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
+import {addCharacter, removeCharacter, selectIsFavorite} from "../store/slices/favoritesSlice.ts";
 
 interface FavoriteButtonProps {
     character: Character
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({character}) => {
+    const dispatch = useAppDispatch()
+    const favorite = useAppSelector((state)=>selectIsFavorite(state, character.id));
 
-    const favorite = false
+    const handleToggle = ()=>{
+        if(favorite){
+            /*
+             removeCharacter(character.id) создает action:
+             {
+                type: 'favorites/removeCharacter',
+                payload: character.id
+             }
+            */
+            dispatch(removeCharacter(character.id))
+        }
+        else {
+            /*
+             addCharacter(character) создает action:
+             {
+                type: 'favorites/addCharacter',
+                payload: character
+             }
+            */
+            dispatch(addCharacter(character))
+        }
+    }
+
     return (
         <button
-            onClick={()=>console.log(character)}
+            onClick={handleToggle}
             className={`w-full px-6 py-3 rounded-xl 
         font-bold transition-all duration-300
         hover:scale-105
